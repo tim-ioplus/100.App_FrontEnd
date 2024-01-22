@@ -1,37 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Quote } from './quote';
-import { QUOTES } from './mock-quotes';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuoteService {
 
-  _quotes: Quote[] = QUOTES;
+  _localStorage : LocalStorageService;
+  _hydrated : boolean;
 
-  constructor() 
+  constructor(private localStorageService : LocalStorageService) 
   {
-    if(this._quotes.length<=1){}   
-    
+    this._localStorage = localStorageService;
+    this._hydrated = this._localStorage.HydrateStorage();    
   }
 
   GetQuote(quoteId: number)
   {
-    let quote: Quote | undefined = this._quotes.find(q => q.id == quoteId);
+    let quote: Quote | undefined = this._localStorage.Read(quoteId)
+
     if(quote == undefined)
     {
-      quote = new Quote(); 
+      quote = new Quote()
     }
-    return quote;
+    return quote
   }
 
-  GetNextQuote(qNumber: number)
+  GetNextQuote(currentQuoteId: number)
   {
-    var nextQuote = new Quote(qNumber);
-    while(nextQuote.id == qNumber)
+    var nextQuote = new Quote(currentQuoteId);
+
+    while(nextQuote.id == currentQuoteId)
     {
-      var index = Math.floor(Math.random() * this._quotes.length);
-      nextQuote = this._quotes[index];
+      var nextId = Math.floor(Math.random() * this._localStorage.length());
+      var _next = this._localStorage.Read(nextId);
+      
+      if(_next != undefined)
+      {
+        nextQuote = _next;
+      }
     }
 
     return nextQuote;
@@ -39,8 +47,8 @@ export class QuoteService {
 
   AddQuote(newQuote: Quote)
   {
-    var countBefore = this._quotes.length;
-    this._quotes.push(newQuote);
-    console.info(countBefore + '/' + this._quotes.length + ' - Quote added:' + newQuote.text);
+    var countBefore = this._localStorage.length();
+    this._localStorage.Create(newQuote);
+    console.info(countBefore + '/' + this._localStorage.length() + ' - Quote added:' + newQuote.text);
   }
 }
