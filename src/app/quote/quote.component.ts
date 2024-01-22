@@ -22,12 +22,8 @@ export class QuoteComponent {
 
   NextQuote()
   {
-    var currentQuoteId = 0;
-    if(this.quote != undefined)
-    {
-      currentQuoteId = this.quote.id;
-    }
-    
+    var currentQuoteId = this.quote != undefined ? this.quote.id : 0;
+        
     this.quote = this.quoteService.GetNextQuote(currentQuoteId);    
   }
 }
