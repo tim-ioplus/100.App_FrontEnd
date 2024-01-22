@@ -1,0 +1,8 @@
+<h2>Add a quote</h2>
+
+<input type="text" name="input-quotetext" value="The quote.." #newQuoteText><br>
+<input type="text" name="input-quoteauthor" value="The author.." #newQuoteAuthor><br>
+<input type="text" name="input-quoteimage" value="A quote image " #newQuoteImage><br>
+<input type="text" name="input-secret" value="secret" #secretText><br>
+<input type="button" (click)="AddQuote(secretText.value, newQuoteText.value, newQuoteAuthor.value, newQuoteImage.value)" 
+    value="Add your Quote"> 
