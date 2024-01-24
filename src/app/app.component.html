@@ -2,8 +2,12 @@
     <div class="row">
         <div class="col s12 m7">
           <img src="https://emojifaces.org/assets/img/twitter/100-emoji-twemoji-11.1-128.png" width="30px" height="30px">
+          <nav>
+            <a class="button" routerLink="/quote-list" routerLinkActive="activeButton" ariaCurrentWhenActive="page">Show Quotes</a>
+            <a class="button" routerLink="/add-quote"  routerLinkActive="activeButton" ariaCurrentWhenActive="page">Add Quotes</a>
+          </nav>
         </div>
     </div>
-    <app-quote></app-quote>
+    <router-outlet></router-outlet>
   </div>
-<router-outlet></router-outlet>
+
