@@ -8,7 +8,7 @@ export class LocalStorageService
 {
 
    private _localStorage: Storage;
-   private _quotes: Quote[] = QUOTES;
+   //private _quotes: Quote[] = QUOTES;
    public length() : number
    {
         return this._localStorage.length;
@@ -31,7 +31,14 @@ export class LocalStorageService
 
     public Create(newQuote: Quote)
     {
-        newQuote.id = this._localStorage.length + 1;
+        var newId = this._localStorage.length + 1;
+
+        while(this.GetQuote(newId) != null)
+        {
+            newId++;            
+        }
+
+        newQuote.id = newId;        
         this._localStorage.setItem(newQuote.id, JSON.stringify(newQuote));
 
         return newQuote.id;
@@ -62,6 +69,24 @@ export class LocalStorageService
         return this.GetQuote(quoteId) != undefined;
     }
 
+    public List() : Quote[] | undefined
+    {
+        let quotes : Quote[] = [];
+        let i : number = 0;
+        while(i < this._localStorage.length)
+        {
+            var quote = this.GetQuote(i);
+            if(quote != undefined && quote != null)
+            {
+                quotes.push(quote);
+            }
+
+            i++;
+        }
+
+        return quotes;
+    }
+
     private GetQuote(quoteId: number) : Quote | undefined
     {
         var item = this._localStorage.getItem(quoteId.toString());
@@ -69,4 +94,5 @@ export class LocalStorageService
 
         return quote;
     }
+
 }

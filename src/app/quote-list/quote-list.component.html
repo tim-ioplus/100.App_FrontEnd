@@ -1,1 +1,23 @@
-<p>quote-list works!</p>
+<p *ngif="!quotes">quote-list loads!</p>
+<p *ngif="quotes">quote-list loaded!</p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="quotes">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Author</th>
+        <th>Quote</th>
+        <th>Image</th>
+        <th>Aktion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let quote of quotes">
+        <td>{{ quote.id }}</td>
+        <td>{{ quote.author }}</td>
+        <td>{{ quote.text }}</td>
+        <td><a href="{{ quote.image }}" target="_blank">ansehen</a></td>
+        <td><input type="button" (click)="Delete(quote.id)" value="Löschen"/> </td>
+      </tr>
+    </tbody>
+  </table>

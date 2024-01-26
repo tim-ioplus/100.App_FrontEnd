@@ -24,7 +24,7 @@ export class AddquoteComponent {
     }
     else
     {
-      //alert("Wrong secret");
+      alert("Wrong secret");
     }    
   }
 }

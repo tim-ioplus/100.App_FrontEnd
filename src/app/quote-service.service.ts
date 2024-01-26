@@ -51,4 +51,17 @@ export class QuoteService {
     this._localStorage.Create(newQuote);
     console.info(countBefore + '/' + this._localStorage.length() + ' - Quote added:' + newQuote.text);
   }
+
+  Delete(quoteId : number) : boolean
+  {
+    var deleted = this._localStorage.Delete(quoteId);
+    alert(quoteId + ' - gelöscht: ' +deleted);
+
+    return deleted;
+  }
+
+  List() : Quote[] | undefined
+  {
+    return this._localStorage.List();
+  }
 }
