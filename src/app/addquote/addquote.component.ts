@@ -20,11 +20,12 @@ export class AddquoteComponent {
     if(secretTextvalue == "mySecret")
     {
       let newQuote = new Quote(1,newQuoteTextValue,newQuoteAuthorValue, newQuoteImageValue);
-      this.quoteService.AddQuote(newQuote);
+      let newId = this.quoteService.Create(newQuote);
+      alert("New Quote " + newId + " saved.");
     }
     else
     {
-      alert("Wrong secret");
+      alert("Wrong credentials, quote can not be saved");
     }    
   }
 }
