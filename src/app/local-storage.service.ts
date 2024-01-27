@@ -8,7 +8,8 @@ export class LocalStorageService
 {
 
    private _localStorage: Storage;
-   //private _quotes: Quote[] = QUOTES;
+   private _currentId : number = 0;
+
    public length() : number
    {
         return this._localStorage.length;
@@ -23,7 +24,8 @@ export class LocalStorageService
     HydrateStorage() 
     {
         QUOTES.forEach(quote => {
-            this._localStorage.setItem(quote.id, JSON.stringify(quote))                
+            this._localStorage.setItem(quote.id, JSON.stringify(quote));
+            this._currentId = quote.id;                
         });
 
         return this._localStorage.length == QUOTES.length;
@@ -31,15 +33,24 @@ export class LocalStorageService
 
     public Create(newQuote: Quote)
     {
-        var newId = this._localStorage.length + 1;
+        var newId = this._currentId + 1;
 
-        while(this.GetQuote(newId) != null)
+        if(this.GetQuote(newId) == null)
         {
-            newId++;            
+            // good, new Id is unused            
         }
+        else
+        {
+            // not good, new Id already used 
+            while(this.GetQuote(newId) != null)
+            {
+                newId++;            
+            }
+        }        
 
         newQuote.id = newId;        
         this._localStorage.setItem(newQuote.id, JSON.stringify(newQuote));
+        this._currentId = newQuote.id;
 
         return newQuote.id;
     }
@@ -66,14 +77,14 @@ export class LocalStorageService
     {
         this._localStorage.removeItem(quoteId.toString());
 
-        return this.GetQuote(quoteId) != undefined;
+        return this.GetQuote(quoteId) == undefined;
     }
 
     public List() : Quote[] | undefined
     {
         let quotes : Quote[] = [];
-        let i : number = 0;
-        while(i < this._localStorage.length)
+        let i : number = 1;
+        while(i <= this._localStorage.length)
         {
             var quote = this.GetQuote(i);
             if(quote != undefined && quote != null)
