@@ -24,11 +24,11 @@ export class QuoteListComponent {
     alert("Delete: " + quoteToDeleteId)
     if(this.quoteService.Delete(quoteToDeleteId))
     {
-
+      alert("Quote {{quoteTodeleteId }} deleted.")
     }
     else
     {
-      alert("Unknwon Error, please restart App.");
+      alert("Quote {{quoteTodeleteId }} not deleted.");
     }
   }
 

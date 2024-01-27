@@ -16,7 +16,7 @@ export class QuoteService {
     this._hydrated = this._localStorage.HydrateStorage();    
   }
 
-  GetQuote(quoteId: number)
+  Get(quoteId: number)
   {
     let quote: Quote | undefined = this._localStorage.Read(quoteId)
 
@@ -27,7 +27,7 @@ export class QuoteService {
     return quote
   }
 
-  GetNextQuote(currentQuoteId: number)
+  GetNext(currentQuoteId: number)
   {
     var nextQuote = new Quote(currentQuoteId);
 
@@ -45,18 +45,14 @@ export class QuoteService {
     return nextQuote;
   }
 
-  AddQuote(newQuote: Quote)
+  Create(newQuote: Quote)
   {
-    var countBefore = this._localStorage.length();
-    this._localStorage.Create(newQuote);
-    console.info(countBefore + '/' + this._localStorage.length() + ' - Quote added:' + newQuote.text);
+    return this._localStorage.Create(newQuote);
   }
 
   Delete(quoteId : number) : boolean
   {
     var deleted = this._localStorage.Delete(quoteId);
-    alert(quoteId + ' - gelöscht: ' +deleted);
-
     return deleted;
   }
 

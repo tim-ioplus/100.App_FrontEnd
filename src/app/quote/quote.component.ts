@@ -17,13 +17,13 @@ export class QuoteComponent {
   {
     this.quote = new Quote(-1, 'this quote', 'component constructor', 'none'); 
 
-    this.quote = this.quoteService.GetQuote(1);
+    this.quote = this.quoteService.Get(1);
   }
 
   NextQuote()
   {
     var currentQuoteId = this.quote != undefined ? this.quote.id : 0;
         
-    this.quote = this.quoteService.GetNextQuote(currentQuoteId);    
+    this.quote = this.quoteService.GetNext(currentQuoteId);    
   }
 }
