@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { QuoteComponent } from './quote/quote.component';
-import { AddquoteComponent } from './addquote/addquote.component';
-import { QuoteListComponent } from './quote-list/quote-list.component';
 import { RouterLink } from '@angular/router';
 import { RouterLinkActive } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+//
+import { QuoteComponent } from './quote/quote.component';
+import { AddquoteComponent } from './addquote/addquote.component';
+import { QuoteListComponent } from './quote-list/quote-list.component';
 
 @Component({
   selector: 'app-root',
